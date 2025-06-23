@@ -22,7 +22,7 @@
 //   export default App;
 ////////////////////////////////////////////////////////
  import { useDispatch, useSelector } from "react-redux";
- import {addtask} from "./todoslice";
+ import {addtask ,RemoveTask} from "./todoslice";
  import { useState } from "react";
 const App=()=>{
     const work=useSelector(state=>state.todo.task);
@@ -31,13 +31,18 @@ const App=()=>{
     const [val,setVal]=useState("");
     console.log(work);
     let sno=0;
-    const ans=work.map((key)=>{
-      sno++;
+    const ans=work.map((key,index)=>{
+      // sno++;
       return(
         <>
         <tr>
-          <td>{sno}</td>
+          <td>{index+1}</td>
           <td>{key.task}</td>
+          <td><button onClick={()=>{dispatch(RemoveTask({id:key.id}))}}>delete</button></td>
+             
+
+
+
         </tr>
         </>
       )
@@ -54,6 +59,7 @@ const App=()=>{
       <tr>
         <th>s.no</th>
         <th>data</th>
+        <th>delete</th>
       </tr>
       {ans}
     </table>
